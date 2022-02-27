@@ -1,0 +1,63 @@
+---
+title: "Proportion Sheet Dataset"
+author: "Eden Barker"
+date: "25/02/2022"
+output:
+  pdf_document
+toc: FALSE
+bibliography: references.bib
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include = FALSE)
+library(janitor)
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+
+```{r data gathering and cleaning, echo=FALSE}
+#read dataset
+GSS_Table3_ <- read_csv("GSS_Table3-%.csv")
+View(GSS_Table3_)
+
+#clean dataset
+groups_df<-
+  clean_names(GSS_Table3_)
+groups_df
+
+groups_df <-
+  select(x2,x3,x5,x6,x8,x9) |>
+  slice(29,152)
+  view(groups_df)
+
+```{r data exploring, echo=FALSE}
+### Table ###
+groups_df <- 
+  tibble(Gender = c('Male', 'Female'),
+         with_MHI = c('21', '20'),
+         without_MHI = c('13','10'),
+         with_LHI = c('19','17'),
+         without_LHI = c('11','7'),
+         with_LD = c('20','16'),
+         without_LD = c('13','8'))
+view(groups_df)
+
+
+
+```
+# Discussion
+
+## Secondary Research
+
+\newpage
+
+\appendix
+
+\newpage
+
+
+# References
+
+
+# Appendix {-}
+
