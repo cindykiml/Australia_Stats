@@ -1,4 +1,4 @@
-@Manual{R,
+@Manual{citeR,
   title = {R: A Language and Environment for Statistical Computing},
   author = {{R Core Team}},
   organization = {R Foundation for Statistical Computing},
@@ -23,12 +23,20 @@
   url = {https://CRAN.R-project.org/package=janitor},
 }
 
-@Manual{Tidyr,
+@Manual{TidyR,
   title = {tidyr: Tidy Messy Data},
   author = {Hadley Wickham and Maximilian Girlich},
   year = {2022},
   note = {R package version 1.2.0},
   url = {https://CRAN.R-project.org/package=tidyr},
+}
+
+@Manual{Readr,
+  title = {readr: Read Rectangular Text Data},
+  author = {Hadley Wickham and Jim Hester and Jennifer Bryan},
+  year = {2022},
+  note = {R package version 2.1.2},
+  url = {https://CRAN.R-project.org/package=readr},
 }
 
 @Article{Tidyverse,
@@ -41,13 +49,41 @@
     pages = {1686},
     doi = {10.21105/joss.01686},
 }
-  
-@Article{Tidyverse,
-    title = {A Tsunami of Disability Is Coming as a Result of ‘Long COVID’},
-    year = {2021},
-    author = {Claire Pomeroy},
-    url = {https://www.scientificamerican.com/article/a-tsunami-of-disability-is-coming-as-a-result-of-lsquo-long-covid-rsquo/},
- }
+
+@InCollection{KnitR,
+  booktitle = {Implementing Reproducible Computational Research},
+  editor = {Victoria Stodden and Friedrich Leisch and Roger D. Peng},
+  title = {knitr: A Comprehensive Tool for Reproducible Research in {R}},
+  author = {Yihui Xie},
+  publisher = {Chapman and Hall/CRC},
+  year = {2014},
+  note = {ISBN 978-1466561595},
+  url = {http://www.crcpress.com/product/isbn/9781466561595},
+}
+
+@Manual{KableExtra,
+  title = {kableExtra: Construct Complex Table with 'kable' and Pipe Syntax},
+  author = {Hao Zhu},
+  year = {2021},
+  note = {R package version 1.3.4},
+  url = {https://CRAN.R-project.org/package=kableExtra},
+}
+
+@Book{Ggplot2,
+  author = {Hadley Wickham},
+  title = {ggplot2: Elegant Graphics for Data Analysis},
+  publisher = {Springer-Verlag New York},
+  year = {2016},
+  isbn = {978-3-319-24277-4},
+  url = {https://ggplot2.tidyverse.org},
+}
+
+@Publication{ABS_GSS2020,
+  title = {General Social Survey: Summary Results, Australia 2020},
+  year = {2021},
+  author = {Australian Bureau of Statistics},
+  url = {https://www.abs.gov.au/statistics/people/people-and-communities/general-social-survey-summary-results-australia/2020#data-download},
+}
 
 @Publication{AusGov_SocialServices,
     title = {Disability Royal Commission Support Services fact sheet - Easy Read version},
@@ -76,4 +112,38 @@
   author = {Department of Social Services, Australian Government},
   url = {https://www.dss.gov.au/sites/default/files/documents/10_2021/vma-faqs-dss-website-update-october-2021.pdf},
 }
-  
+
+@Article{Michael2019,
+  title = {Why volunteers with disability are an “untapped resource” for the NFP sector},
+  year = {2019},
+  author = {Luke Michael},
+  url = {https://probonoaustralia.com.au/news/2019/09/why-volunteers-with-disability-are-an-untapped-resource-for-the-nfp-sector/},
+}
+
+@Article{McVillyandDodevska2017,
+  title = {Measuring the value of Australian volunteers},
+  year = {2017},
+  author = {Keith McVilly, Gemma Dodevska},
+  url = {https://pursuit.unimelb.edu.au/articles/measuring-the-value-of-australian-volunteers},
+}
+
+@Research{Lyonsetal2006,
+  title = {Researching Giving and Volunteering in Australia},
+  year = {2006},
+  author = {Mark Lyons, Myles McGregor-Lowndes, Phillip ODonoghue},
+  url = {https://probonoaustralia.com.au/news/2019/09/why-volunteers-with-disability-are-an-untapped-resource-for-the-nfp-sector/},
+}
+
+@Article{Michael2019,
+  title = {Why volunteers with disability are an “untapped resource” for the NFP sector},
+  year = {2019},
+  author = {Luke Michael},
+  url = {https://probonoaustralia.com.au/news/2019/09/why-volunteers-with-disability-are-an-untapped-resource-for-the-nfp-sector/},
+}
+
+@Publication{AIHW_2021,
+    title = {Volunteers},
+    year = {2021},
+    author = {Australian Government, Australian Institute of Health and Welfare},
+    url = {https://www.aihw.gov.au/reports/australias-welfare/volunteers},
+}
