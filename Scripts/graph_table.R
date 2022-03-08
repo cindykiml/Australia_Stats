@@ -5,10 +5,12 @@ install.packages("ggplot2")
 install.packages("here")
 install.packages("dplyr")
 install.packages("tidyverse")
+install.packages("tables")
 library(ggplot2)
 library(here)
 library(dplyr)
 library(tidyverse)
+library(tables)
 
 # Read .csv files from Inputs folder
 male_data <- read_csv(here("Inputs", "male_data.csv"))
@@ -39,6 +41,8 @@ male_graph <- ggplot(male_df, aes(factor(Category), Amount, fill = Classificatio
   theme_minimal() +
   scale_fill_manual(values = c("#7ac975", "#211ec7"))
 
+male_graph
+
 ## FEMALES
 # Amount column
 Amount2 <- c(348, 1125.2, 902.1, 588.2, 525.1, 961.6)
@@ -57,3 +61,29 @@ female_graph <- ggplot(female_df, aes(factor(Category), Amount2, fill = Classifi
        y = "Number of Females") +
   theme_minimal() +
   scale_fill_manual(values = c("#7ac975", "#211ec7"))
+
+female_graph
+
+# Now we want to create a table that can compare both male and female dataframes
+
+# First we need to rename the column values to indicate the sex of the demographic we are looking at
+male_data[male_data == "Cared for a person with either a disability, long term health condition or old age in last 4 weeks"] <- "Males"
+female_data[female_data == "Cared for a person with either a disability, long term health condition or old age in last 4 weeks"] <- "Females"
+
+# We can now combine the two dataframes into one
+male_female_df <- rbind(male_data, female_data)
+
+# We need to rename the columns so it give the reader information on what values they are looking at
+colnames(male_female_df) <- c("Sex","MC", "Non-MC", "LTHC", "Non-LTHC", "Disabled", "Non-Disabled")
+
+# Now we can use kable to create a nicer looking table
+table <- 
+  knitr::kable(
+    male_female_df,
+    "pipe",
+    col.names = c("Sex","MC", "Non-MC", "LTHC", "Non-LTHC", "Disabled", "Non-Disabled"),
+    align = "lcccccc",
+    caption = "Condition of Male and Female Caretakers Taking Care of LTHC, Disabled, Old Aged Individuals in the Last 4 Weeks"
+  )
+table
+
