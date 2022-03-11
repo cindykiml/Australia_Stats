@@ -112,6 +112,20 @@
   author = {Department of Social Services, Australian Government},
   url = {https://www.dss.gov.au/sites/default/files/documents/10_2021/vma-faqs-dss-website-update-october-2021.pdf},
 }
+  
+@Publication{NDIS,
+    title = {National Disability Insurance Scheme},
+    year = {2022},
+    author = {National Disability Insurance Agency},
+    url = {https://www.ndis.gov.au/understanding/what-ndis},
+}
+
+@Publication{HeadtoHealth,
+    title = {Purposeful Activity - Volunteering},
+    year = {2022},
+    author = {Department of Health, Australian Government},
+    url = {https://www.headtohealth.gov.au/meaningful-life/purposeful-activity/volunteering},
+}
 
 @Article{Michael2019,
   title = {Why volunteers with disability are an “untapped resource” for the NFP sector},
@@ -147,3 +161,35 @@
     author = {Australian Government, Australian Institute of Health and Welfare},
     url = {https://www.aihw.gov.au/reports/australias-welfare/volunteers},
 }
+  
+@Journal{MusickandWilson2003,
+    title = {Volunteering and depression: the role of psychological and
+      social resources in different age groups},
+    year = {2003},
+    author = {Marc A. Musick, John Wilson},
+    url = {https://doi.org/10.1016/S0277-9536(02)00025-4
+} 
+
+@Journal{Krauseetal1992,
+      title = {Providing support to others and well-being in later life},
+      year = {1992},
+      author = {Neal Krause, A.Regula Herzog, and Elizabeth Baker},
+      url = {https://doi.org/10.1093/geronj/47.5.P300
+}
+
+@Journal{LumandLightfoot2005,
+      title = {The Effects of Volunteering on the Physical and Mental Health of Older People},
+      year = {2005},
+      author = {Terry Lum, Elizabeth Lightfoot},
+      url = {https://doi.org/10.1177/0164027504271349
+}
+      
+      
+      
+      
+      
+      
+      
+      
+  
+  
