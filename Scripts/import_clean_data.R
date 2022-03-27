@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Purpose: This script will import and clean the dataset
 ## Date: February 25nd, 2022
 
@@ -38,3 +39,11 @@ female_data <- raw_data[-c(1:151),]
 female_data <- female_data[-c(2:227),]
 
 write_csv(female_data, "Inputs/female_data.csv")
+=======
+# Purpose: This script will read and clean the data
+# Date: February 25th, 2022
+
+library(readr)
+raw_data <- read_csv("Inputs/raw_data/GSS_Table3.csv")
+View(raw_data)
+>>>>>>> main

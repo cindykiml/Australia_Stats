@@ -1,6 +1,17 @@
-## Purpose: This script will import processed data, create graphs and a table
-## Date: March 4th, 2022
+---
+title: "Australian Stats"
+subtitle: ""
+author: "Cindy Ly, Eden Barker, Shae-Linn Davies"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  bookdown::pdf_document2:
+thanks: ""
+abstract: ""
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(repos = list(CRAN="http://cran.rstudio.com/"))
 install.packages("ggplot2")
 install.packages("here")
 install.packages("dplyr")
@@ -9,11 +20,23 @@ library(ggplot2)
 library(here)
 library(dplyr)
 library(tidyverse)
+```
+
+## R Markdown
+
+```{r retrieval, include=FALSE}
 
 # Read .csv files from Inputs folder
 male_data <- read_csv(here("Inputs", "male_data.csv"))
 female_data <- read_csv(here("Inputs", "female_data.csv"))
 
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r graph code, include=FALSE}
 # The dataset from the Australian Bureau of Statistics displays each category as columns, however our graph we need to arrange them into one singular column
 # We need to create a new dataframe that will be used for creating barcharts
 
@@ -39,8 +62,6 @@ male_graph <- ggplot(male_df, aes(factor(Category), Amount, fill = Classificatio
   theme_minimal() +
   scale_fill_manual(values = c("#7ac975", "#211ec7"))
 
-male_graph
-
 ## FEMALES
 # Amount column
 Amount2 <- c(348, 1125.2, 902.1, 588.2, 525.1, 961.6)
@@ -59,8 +80,18 @@ female_graph <- ggplot(female_df, aes(factor(Category), Amount2, fill = Classifi
        y = "Number of Females") +
   theme_minimal() +
   scale_fill_manual(values = c("#7ac975", "#211ec7"))
+```
 
+
+```{r graphs, echo=FALSE}
+
+male_graph
 female_graph
+
+```
+
+
+```{r table-code, include=FALSE}
 
 # Now we want to create a table that can compare both male and female dataframes
 
@@ -74,6 +105,10 @@ male_female_df <- rbind(male_data, female_data)
 # We need to rename the columns so it give the reader information on what values they are looking at
 colnames(male_female_df) <- c("Sex","MC", "Non-MC", "LTHC", "Non-LTHC", "Disabled", "Non-Disabled")
 
+```
+
+```{r table, echo=FALSE}
+
 # Now we can use kable to create a nicer looking table
 table <- 
   knitr::kable(
@@ -83,5 +118,8 @@ table <-
     align = "lcccccc",
     caption = "Condition of Male and Female Caretakers Taking Care of LTHC, Disabled, Old Aged Individuals in the Last 4 Weeks"
   )
+
 table
+
+```
 
