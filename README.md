@@ -15,10 +15,11 @@ Our follow-up survey can be found [here](https://forms.gle/eVPvgLjYRtsaNnSh8)
 
 ## File Structure
 
-### Inputs folder
+### Inputs
 The Inputs folder contains the raw data and .csv files needed to create our graphs and table, as well as the relevant literature referenced in our paper.
 
 male_data.csv: newly created dataframe to later transcribe into graph to show male volunteers
+
 female_data.csv: newly created dataframe to later transcribe into graph to show female volunteers
 
 #### raw_data Folder: 
@@ -31,14 +32,17 @@ Contains the relevant literature that was available in PDF format used in our pa
 Our Scripts folder contains the .R scripts used to process the .csv files in order to create our graphs and table
 
 import_clean_data.R: code used to import and clean data, and create two new dataframes
+
 graph_table.R: code used to create graphs and table
 
 ### Outputs
 Our outputs folder contains the final products of our paper
 
 Australia_Stats.Rmd: The R Markdown script used to create our final product
+
 Australia_Stats.pdf: Our paper and final product
+
 references.bib: All our references when writing the paper
 
-#### Survey
+#### Survey Folder:
 Contains the questions from our survey (in case the link provided fails to work).
