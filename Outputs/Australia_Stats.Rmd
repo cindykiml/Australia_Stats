@@ -1,29 +1,83 @@
 ---
-title: "Australian Stats"
-subtitle: ""
+title: "Conditions of Individuals Who Volunteer As Caretakers for Vulnerable Populations in Australia"
 author: "Cindy Ly, Eden Barker, Shae-Linn Davies"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: 
   bookdown::pdf_document2:
-thanks: ""
-abstract: ""
+thanks: "Code and data are available at: https://github.com/cindykiml/Australia_Stats"
+abstract: "According to the summary results of the **2020 General Social Survey of Australia** (GSS)[@ABS_GSS2020], a great amount of individuals with *Mental Health Conditions, Long-Term Health Conditions, and Disabilities* volunteer as caretakers for vulnerable populations despite being a part of this population themselves. Understanding that surveys, such as the GSS are utilized to create policies and project funding, led us to investigate the prevalence of volunteers with certain conditions. It is widely accepted that volunteering benefits both parties and is a practice that would lead to an overall improved personal circumstance. Therefore, we draw on relevant literature to investigate the circumstances under why these individuals volunteer and also developed a follow-up survey with questions aimed to understand how their situation differs and whether the narrative of voluntary support is beneficial to them."
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(repos = list(CRAN="http://cran.rstudio.com/"))
-install.packages("ggplot2")
-install.packages("here")
-install.packages("dplyr")
-install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("here")
+#install.packages("dplyr")
+#install.packages("tidyverse")
+#install.packages("readr")
+#install.packages("janitor")
+#install.packages("tidyr")
+#install.packages("knitr")
 library(ggplot2)
 library(here)
 library(dplyr)
 library(tidyverse)
+library(readr)
+library(janitor)
+library(tidyr)
+library(knitr)
 ```
 
-## R Markdown
+# Introduction
+Since 2002, the Australian Bureau of Statistics has collected information relating to the wellbeing of its residents with the *General Social Survey* (GSS) [@ABS_GSS2020]. Every four years, up until 2020 where it surveyed its residents two years in a row (2019 and 2020), this survey has been leveraged to consider many topics related to household and individual demographic characteristics and aspects important to social wellness. These topics include education, employment, personal safety, relationships, and volunteerism. The data and the Bureau’s key findings are freely accessible to the public, and include informative instructions and information to access, read and understand the survey data. The goal of the survey is to capture demographics and relational data of residents of Australia in a moment of time to provide a base for understanding and comparing various social circumstances, outcomes, and a range of advantages and disadvantages an individual and/or household may experience as a resident of Australia.
 
+Our paper seeks to consider a very specific data subset of the 2020 GSS and Australian population. In this report, we explore GSS data using 'R' [@citeR], and consider people with and without *Mental Health Conditions (MC), Long-Term Health Conditions (LTHC) and Disabilities* who volunteer to support other people with *Long-Term Health Conditions, Disabilities, and of Old Age*. The 2020 GSS highlighted in their summary findings that “one quarter (25%) of Australians aged 15 years and over participated in unpaid voluntary work through an organization in 2020” and that “in 2020, almost half (49%) of the Australian population aged 15 years and over provided unpaid work/support to non-household members in the four weeks prior to the survey” [@ABS_GSS2020]. The Bureau provided additional data breaking down these findings further. Our team focused on Table \@ref(tab:table1), which showcases summary data of the social experiences of persons aged 15 years and over, by sex and health characteristics [@ABS_GSS2020]; we chose this dataset because we were curious about people’s level of volunteerism considering potential health barriers, especially due to the potential risks of COVID-19.
+
+While we hypothesized that the number of people without mental health conditions, long-term health conditions and disabilities supporting people with long-term health conditions, disabilities or of old age would vastly differ, this was not always the case. In fact, people surveyed who had long-term health conditions were more likely to help others with long-term health conditions, disabilities or of old age than those without one. Our analysis compares these characteristics, along with respondent sex. We believe that this is an overlooked factor, and thus we will explore it in our report. It is important to recognize this overlooked data, as it highlights how people with different abilities have contributed to the wellbeing of others in Australia, despite the impacts of COVID-19. Especially recognizing that people with mental health conditions, long-term health conditions and disabilities may experience additional barriers to volunteerism in general, their contributions should be celebrated and highlighted in addition to the overall volunteerism key findings. 
+
+In this report, we will discuss the 2020 GSS survey data and its methodology. Then, we will report our findings in analyzing the Table \@ref(tab:table1) data. Most importantly, we will discuss our findings in terms of key literature, identifying survey strengths and weaknesses along with recommendations for survey amelioration. 
+
+# Data
+
+The data cleaning was processed on an open source platform called 'R'[@citeR]. The dataset was pulled from the **Australian Bureau of Statistics** as a downloadable .xlxs file with over 377 observations and 10 variables that has already been cleaned and tallied, separated by gender outcomes. The focus of this dataset was to provide insight on relationships between characteristics. Due to the nature of the dataset being a results summary that is meant for public consumption, we understand that it can be viewed and analyzed to serve many purposes. For the purpose of having a meaningful analysis,we controlled the dataset down to main variables which are the health conditions and gender of participants. We decided to have a focal point that we can concentrate on, rather than interpreting the dataset as whole. This allows us to substantiate the findings and postulate recommendations based on our own analysis. The data has been cleaned using the package 'Janitor' [@Janitor] and filtered to create new data frames using packages 'Dplyr' [@Dplyr], 'TidyR' [@TidyR], 'Tidyverse' [@Tidyverse] and 'ReadR' [@Readr]. The new data frames was generated to focus on data for the *Cared for a person with either a disability, long term health condition or old age in last 4 weeks* entry with a focus on outcomes from **Males** and **Females** [@ABS_GSS2020]. The dataset was reduced to only include reports for **Mental Health Conditions (MC), Long-Term Health Conditions (LTHC) and Disabilities**. 
+
+## Survey Data & Implications
+
+The dataset was generated by the **Australian Bureau of Statistics** called *General Social Survey: Summary Results Australia 2020* [@ABS_GSS2020] It is an annual survey that aims to provide information on "social characteristics, wellbeing and social experiences of people in Australia". The results summary was released on June 29, 2021, referencing the period 2020 as the year the data was collected.[@ABS_GSS2020] The **Australian Bureau of Statistics** indicated that the survey was conducted over a 4 month period from 15th June to 5th September 2020 during the COVID-19 pandemic. As per **Australian Bureau of Statistics** "There was no face-to-face interviewing conducted in 2020 due to COVID-19 restrictions. Because of this changed methodology and the impact of COVID-19 restrictions on the Australian population, care should be exercised when making comparisons with 2019.The survey was previously ran in 2019.  Prior to that, the survey was conducted once every four years from 2002 to 2014" [@ABS_GSS2020]. We did not compare data from 2019 or earlier for this report. Of note, we did focus on a subset of the dataset and theme that was impacted by COVID-19, in that in-person volunteering was at an overall lesser rate due to federal lockdowns, so this could be a factor as to why we’re seeing the trends we’ve identified in the data. The dataset was pulled from the **Australian Bureau of Statistics** database where it was downloaded locally as an .xlxs file and converted to a .csv file. It was then processed in 'R' [@citeR] and visualized as graphs and table with a controlled dataset using packages 'Ggplot2' [@Ggplot2] and 'Knitr' [@KnitR].
+
+
+## Methodology
+
+### Survey Methodology
+The *General Social Survey: Summary Results Australia 2020* includes all usual Australian residents aged 15 and over, accounting for approximately 5,300 Australian households [@ABS_GSS2020]. Of note, this population does not include those residing in remote parts of Australia. The survey was carried out via telephone interview and online means. Due to the impacts of COVID-19, no in-person interviews were held. The key benefit of this survey is to provide information on the multi-dimensional nature of relative advantage and disadvantage across the population.
+
+### Key Features
+Through the *General Social Survey*, the Australian Bureau of Statistics sought to understand the social characteristics, experiences and sense of wellbeing of its residents as well as understand trends in those who may be privileged over others. By being provided an overview of resident demographics, and relational data, the findings of the survey are used by those including government, academics, and community organizations to help inform social policy and research for areas of social concern [@ABS_GSS2020]. Factors inquired about include life satisfaction, personal stressors, involvement in social, community support, civic and political groups, family and community support, cultural tolerance and discrimination, trust, financial stress, and voluntary work. Particular sub-populations of interest include people with a mental health condition, people with a long-term health condition, people with a disability, recent migrants and temporary residents and people with different sexual orientations.
+ 
+### Scope
+ As previously highlighted, the scope of this survey is those who are usual residents of Australia age 15+, more specifically, in private dwellings. Thus, visitors to private dwellings, overseas visitors of less that 12 months, members of non-Australian defense forces stationed in Australia and their dependents, non-Australian diplomats, diplomatic staff and their household members, along with people who do not live in private dwellings such as hotels, motels hostels, hospitals, nursing homes, and short-stay caravans were also not included. Those in remote parts of Australia, including discrete Aboriginal and Torres Strait Islander communities were not included, with the explanation that their responses would impact national estimates, and “[would] only have a minor impact on any aggregate estimates that are produced for individual states and territories, except the Northern Territory where the excluded population accounts for around 21% of persons'' [@ABS_GSS2020].
+ 
+### Sampling
+The sampling process is as follows: One person from each household age 15 or older was selected to participate in the survey. If the person was age 15-17, parental consent was required. Households were randomly selected, however the algorithm performing the random selection was designed to target low socio-economic areas so that people in those areas were more likely to be picked, given the survey was meant to gather data trends relating to privilege.
+A total of 5,304 households (60.5% response rate) responded to the survey; 3,764 surveys were completed online and 1,540 surveys were completed via telephone interview.
+
+In terms of communication, selected households received a letter and 2 follow-up letters in the mail to complete the survey. Respondents were instructed to complete the survey online if possible and if not possible, they could complete the interview via telephone with an ABS interviewer. Due to COVID-19, no in-person reminders or follow-up was conducted for non-responding households. The survey methodology states that this factor “resulted in a higher than usual proportion of non-response (37.9%)“ [@ABS_GSS2020].
+
+For the survey itself, two forms were included. The first form, the *Household Form* could be answered by any responsible adult of the household age 18 or older. This form collects demographic data on all members of the selected household, including those under the age of 18 (i.e., also including children). The second form, the *Individual Form*, is to be completed by the randomly selected person age 15+ of that household, about their personal experience and orientation. This person is chosen via automation via a survey instrument before the two forms are sent out.
+
+Weighting is used in consideration of the survey data. Each person (data related to the *Individual Form*) or household (data related to the *Household Form*) is given a number (weight) to reflect how many people or households they would represent in the whole Australian population. Their initial weight is calculated based on the probability of them being selected. For confidentiality purposes, perturbation is used so as not to be able to identify a single person or household.
+ 
+### Errors and Non-Response
+Regarding non-response, the GSS methodology states “some survey respondents were unable or unwilling to provide a response to certain data items. The records for these people were retained in the sample and the missing values were recorded as 'Not stated' or 'Don't know'. No imputation was undertaken for these missing values” [@ABS_GSS2020]. 79 of selected participants refused to participate, and 58 participants partially responded while 3,327 did not respond to the survey at all. Due to this, non-sampling errors exist; additional non-sampling errors could exist due to respondents misunderstanding questions, respondents incorrectly recording their responses, or general data coding and processing.
+
+Sampling error, the expected difference between values that would be produced if the whole population of Australia were surveyed and the values collected by survey respondents, may occur as a result of random variation, the method used to select survey participants. Examples of specific measures of sampling error discussed by the Australian Bureau of Statistics for this survey include measuring relative standard error and margin of error however, exact measures for the GSS were not included.
+ 
+### Sampling Trade-offs
+A major trade-off of completing this survey during the COVID-19 pandemic is that only telephone and online participation was available. Given this is the first time there was no option for in-person responses, this could have impacted the sample as all people answering had access to a device capable of online services, and/or a telephone. While it may have been less taxing for the Bureau in terms of in-person training and survey costs, there could have been additional potential for survey respondents to incorrectly complete the survey due differences in survey layout online or over the phone, in comparison to in-person. Due to the ever changing circumstances surrounding COVID-19 and world events, there is also great potential for people to answer survey questions one way at the time they initially answered the survey, yet if they were asked at another time, for example, either earlier in the year or a month or two down the road, their outlook and responses may be different. Circumstances were changing rapidly so the timeline of the survey, being from June to September 2020, may have yielded quite different responses within that same period. Similarly, with the GSS overall, there is no uniformity of data. The same people aren’t surveyed every four years, so while general trends may potentially be identified, true comparisons must be taken more lightly.
+
+# Results
 ```{r retrieval, include=FALSE}
 
 # Read .csv files from Inputs folder
@@ -31,10 +85,6 @@ male_data <- read_csv(here("Inputs", "male_data.csv"))
 female_data <- read_csv(here("Inputs", "female_data.csv"))
 
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
 
 ```{r graph code, include=FALSE}
 # The dataset from the Australian Bureau of Statistics displays each category as columns, however our graph we need to arrange them into one singular column
@@ -56,7 +106,7 @@ male_df <- data.frame(Category, Amount, Classification)
 # From this we can now make a bar chart
 male_graph <- ggplot(male_df, aes(factor(Category), Amount, fill = Classification)) + 
   geom_bar(width = 0.7, stat="identity", position = "dodge") + 
-  labs(title = "Conditions of Males Who Have Cared for Another Person with a Disability, Long-term Health Condition or Old Age in Last 4 Weeks",
+  labs(title = "Conditions of Males Who Have Cared for Another Person with a Disability, \nLong-term Health Condition or Old Age in Last 4 Weeks",
        x = "Condition",
        y = "Number of Males") +
   theme_minimal() +
@@ -75,17 +125,19 @@ female_df <- data.frame(Category, Amount2, Classification)
 # From this we can now make a bar chart
 female_graph <- ggplot(female_df, aes(factor(Category), Amount2, fill = Classification)) + 
   geom_bar(width = 0.7, stat="identity", position = "dodge") + 
-  labs(title = "Conditions of Females Who Have Cared for Another Person with a Disability, Long-term Health Condition or Old Age in Last 4 Weeks",
+  labs(title = "Conditions of Females Who Have Cared for Another Person with a \nDisability, Long-term Health Condition or Old Age in Last 4 Weeks",
        x = "Condition",
        y = "Number of Females") +
   theme_minimal() +
   scale_fill_manual(values = c("#7ac975", "#211ec7"))
 ```
 
-
-```{r graphs, echo=FALSE}
-
+```{r malegraphs, echo=FALSE}
 male_graph
+```
+
+```{r femalegraphs, echo=FALSE}
+
 female_graph
 
 ```
@@ -107,7 +159,7 @@ colnames(male_female_df) <- c("Sex","MC", "Non-MC", "LTHC", "Non-LTHC", "Disable
 
 ```
 
-```{r table, echo=FALSE}
+```{r table1, echo=FALSE}
 
 # Now we can use kable to create a nicer looking table
 table <- 
@@ -123,3 +175,99 @@ table
 
 ```
 
+The results indicate that overall, females volunteer as caretakers more than males, as seen in Table \@ref(tab:table1). We also noticed that individuals who had long term health conditions were the greatest population to be caretakers out of all “Yes” classifications for both males and females. As for the “No” classifications, individuals without any mental health conditions were the greatest population to be caretakers in this sector for both males and females.
+
+# Discussion
+
+## Relevant Literature
+
+McGillvey and Dodevska posit Australia to be a country that values volunteering as one of its core cultural features [@McVillyandDodevska2017]. This translates to the dataset presented by the Australian Bureau of Statistics’ summary results of the General Social Survey of 2020 [@ABS_GSS2020]. Focusing on the specific results regarding volunteering, it’s remarkable that the proportion of volunteers between those who suffer from long-term health conditions to those who don’t is significantly greater [@ABS_GSS2020]. According to the Australian Institute of Health and Wellness [@AIHW_2021], volunteering serves as an indicator of wellbeing and social cohesion of people. Through volunteering, people can become more outwardly focused, which may strengthen social interactions or even reduce anxiety [@AIHW_2021].
+
+As expected, there were more female caretakers than males. This was something we had anticipated due to the societal norm that women must undertake reproductive labour. This field of labour includes taking care of others and is also unpaid, similar to the conditions of volunteering. Since these women are voluntarily taking on reproductive labour, it would be interesting to investigate whether or not they are also undertaking such roles at home as well. In addition, perhaps they feel obligated to take on such roles because of social norms.
+
+A proposition noted by Musick and Wilson on their paper where over a 10 year period, on six occasions that women were asked if they volunteered, half had answered never volunteered. As seen in Table \@ref(tab:table1), volunteering among those that identified with mental health issues was around a quarter of those without. It's always been said that volunteering helps alleviate anxiety and depression. It has been noted in several studies that the association between volunteering and its positive effects on individuals have indicated that this is a consequence of self-validation. The opportunity to dedicate themselves in an activity that requires them to look beyond their own welfare allows people to feel unique, which can possibly impede depression [@Krauseetal1992]. According to the paper by @MusickandWilson2003 where they propose that volunteering experience could decrease or even prevent depression based on findings by @LumandLightfoot2005 that looked into the effects of volunteering on the physical and mental health of older people. 
+
+In this study (AHEAD-Asset and Health Dynamics Among the Oldest Old Study) they have noted that data acquired from 1993 to 2000 determined the relationship between physical and mental health in persons over 70 years old, who had over 100 hours of volunteer experience in 1993. However, this study is subjective as the results showed that volunteering experience could affect self-reported conditions and not the ones that are medically diagnosed. Similarly, McVilly and Dodevska mentions in their article that volunteering impacts are difficult to measure due to inconsistent definitions and survey methodologies @McVillyandDodevska2017.
+
+It is important to note that studies and surveys such as the *Australian General Social Survey* influence policies and funding of projects including the @NDIS (National Disability Scheme). This could mean that the narrative of the positive effects of volunteering is perpetuated to feed into the system of volunteers to get more funding and may exploit or not support the needs of the volunteers especially of those that are suffering from conditions noted in the dataset. Understanding the social and psychological complexities of volunteering and how data can be easily adapted to fit different narratives is vital in translating this information. Research methodologies may be skewed to fit this narrative that furthers the portrayal of volunteers to report experiencing less stress and anxiety as what the *Department of Health of Australia* @HeadtoHealth account on their volunteering page. Information viewable through this [link](https://www.headtohealth.gov.au/meaningful-life/purposeful-activity/volunteering). This may not represent the struggles or have a blind spot on challenges of volunteers who suffer from either mental or physiological disabilities.
+
+We believe that volunteering has its positive effects both socially and psychologically. It helps build communities up, especially of those with disabilities and may show positive changes in mood on both sides. We hope to support the needs of these specific volunteers through amendments on the survey released by the Australian Government. 
+
+## Data Strengths and Weaknesses
+
+### Strengths
+Australia’s released GSS data is an excellent example of publicly-accessible survey data that is transparent and well organized. Downloading the files themselves is a clear and straightforward process, with a simple download button found at the top of the page. As well, there exists options to preview example subsets of data, in the form of pre-made tables, which also include text explanations for data trends. Included with the dataset is a thorough overview of the survey, how the data is collected, used, and released, as well as clearly divulges changes made to the survey over the years, such as major potential differences in data collection due to the COVID-19 pandemic, and changes to how questions are worded survey year over survey year. Data collected was relevant and multi-faceted, using many sub questions within each topic to cover a wide range of topics related to social wellbeing.
+Along with information about the data, clear definitions about the data’s accuracy are also outlined, along with strong language citing the importance of respondent confidentiality. There is also an exhaustive glossary and “Abbreviations” section for the data, alphabetically including definitions for key survey terms. See [Appendix A] for key relevant terms used in our paper.
+ 
+### Weaknesses
+ Given the Australian Bureau of Statistics stated that they sought to gather information about “relative advantage and disadvantage across the population” [@ABS_GSS2020], some of their data collection processes were not aligned with this notion. Recognizing challenges due to COVID-19, the choice to not hold in-person interviews is not necessarily judgeable. However, it is interesting that there was no option to complete a paper version of the survey, yet each household selected to participate in the survey was sent multiple forms and physical mail reminders to complete the survey online or via telephone interview. Considering those who belong to more disadvantaged communities may have been less likely to have access to an online survey or phone, along with potentially having limited access to public resources that would provide phone or online services due to the pandemic, it is a potential weakness that a paper version was not an option.
+ 
+In a similar vein, while the Australian Bureau of Statistics did provide the explanation that they make up a small proportion of the population thus may not make a large difference to federal data overall, they excluded those who do not live in a private dwelling from the survey, such as those who live in motels, hostels, hospitals, nursing homes, and short-stay caravan parks. Arguably, those who experience more precarious housing situations are more disadvantaged and would experience different, and perhaps greater challenges related to social wellbeing in comparison to those who reside in a private dwelling.  
+
+Finally, it is of note that the Australian Bureau of Statistics took minimal action to support people with disabilities in answering the survey, only offering two options (online or phone) to complete the survey. 
+
+# Next Steps
+To capture the intertwined nature of data related to volunteerism and people with and without *Mental Health Disabilities, Long-Term Health Disabilities and Long-Term Disabilities*, additional in-depth survey questions are needed to understand the motivation, dedication, and emotion that comes along with volunteering with or without a disability. We propose a survey augmentation, see [Appendix B], that increases the number of questions more specific to volunteering, in order to collect data including the types of responsibilities taken, the time commitment, relation between volunteer and person being supported, and feelings towards volunteering whether with a disability or not. This additional data would further inform social well-being, instead of simply measuring how many volunteers there have historically been.
+
+In our suggested survey augmentation, we have also included the demographic question “What gender do you identify as?”. As this question was not included in the 2020 GSS, respondents were often classified by sex, and not how they socially identify (i.e., their gender identity), seemingly opposing the nature of a “socially driven” survey. This additional question aligns with the goals of the GSS, and affirms people’s gender identities. With this question, greater context is also created to be able to identify trends in potential disparities, advantages, or disadvantages people experience regarding discrimination, mental health and social life, and other factors. 
+
+Overall, while there is always room for next steps and improvement, it is appreciated that the Australian Bureau of Statistics has been committed to providing this data, and improving upon the survey methodology and questions, to help inform social policy and affirm key research that will impact the continued wellbeing of Australian residents. 
+
+# Appendix A
+
+**Glossary Terms From the GSS**
+
+*Disability*:
+“A disability exists if a limitation, restriction, impairment, disease or disorder, had lasted, or was likely to last for at least six months, and which restricted everyday activities.
+It is classified by whether or not a person has a specific limitation or restriction. Specific limitation or restriction is further classified by whether the limitation or restriction is a limitation in core activities or a schooling/employment restriction only. 
+There are four levels of core activity limitation (profound, severe, moderate and mild) which are based on whether a person needs help, has difficulty, or uses aids or equipment with any of the core activities (self care, mobility or communication). A person's overall level of core activity limitation is determined by their highest level of limitation in these activities. 
+The four levels are: 
+1. 	profound - always needs help/supervision with core activities 
+2. 	severe - does not always need help with core activities 
+3. 	moderate - has difficulty with core activities 
+4. 	mild - uses aids to assist with core activities.
+Persons are classified as having only a schooling/employment restriction if they have no core activity limitation and are aged 15 to 20 years and have difficulties with education, or are aged 15 years and over and have difficulties with employment.”
+
+*Long-term health condition*:
+A long-term health condition is a current disease or disorder that has been diagnosed by a doctor, nurse or other health professional and has lasted, or is likely to last, for six months or more. Includes conditions controlled by medication. Data are self-reported by the respondent.
+
+*Mental health condition*:
+Includes people who reported they had a 'Mental health condition (including depression or anxiety)' from the list of long term health conditions. Refer to the definition of long term health conditions for further information.
+
+Also of note, related to *Severity of Disability*:
+“There is a conceptual difference in the way the Severity of Disability item was derived after 2014. In 2014, the long term health condition module was used in conjunction with the disability module to derive the item 'No disability or no long term health condition'. In 2019 and 2020, only the disability module was used to derive the item 'No disability'. Conceptually, this means that this particular category for Severity of Disability should not be compared between the 2014 and later iterations.”
+
+# Appendix B
+Survey Link: **https://forms.gle/eVPvgLjYRtsaNnSh8**
+
+\pagebreak
+
+Survey Questions:
+
+```{r Survey1, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey1.png"))
+```
+
+```{r Survey2, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey2.png"))
+```
+
+```{r Survey3, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey3.png"))
+```
+
+```{r Survey4, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey4.png"))
+```
+
+```{r Survey5, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey5.png"))
+```
+
+```{r Survey6, echo=FALSE, message=FALSE, warning=FALSE, out.width= '70%'}
+knitr::include_graphics(here("Outputs", "Survey", "Survey6.png"))
+```
+
+\pagebreak
+
+# References
